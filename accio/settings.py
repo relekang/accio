@@ -37,6 +37,8 @@ AUTHENTICATION_BACKENDS = (
 
 
 INSTALLED_APPS = [
+    'accio.organizations',
+    'accio.projects',
     'accio.users',
 
     'social.apps.django_app.default',
