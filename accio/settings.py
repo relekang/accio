@@ -12,6 +12,7 @@ def load_secrets():
     except FileNotFoundError:
         return {}
 
+
 secrets = load_secrets()
 
 DEBUG = secrets.get('debug', True)
@@ -22,7 +23,6 @@ AUTH_USER_MODEL = 'users.User'
 LOGIN_REDIRECT_URL = '/admin/'
 
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
-
 
 SOCIAL_AUTH_GITHUB_KEY = secrets.get('social_auth_github_key', '')
 SOCIAL_AUTH_GITHUB_SECRET = secrets.get('social_auth_github_secret', '')
@@ -35,7 +35,6 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-
 INSTALLED_APPS = [
     'accio.organizations',
     'accio.projects',
@@ -43,6 +42,7 @@ INSTALLED_APPS = [
 
     'social.apps.django_app.default',
     'rest_framework',
+    'djcelery',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -103,7 +103,6 @@ DATABASES = {
     }
 }
 
-
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
@@ -115,3 +114,7 @@ STATIC_ROOT = os.path.join(REPO_DIR, 'static')
 
 MEDIA_URL = '/uploads/'
 MEDIA_ROOT = os.path.join(REPO_DIR, 'uploads')
+
+CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
+CELERY_ACCEPT_CONTENT = ['json']
+BROKER_URL = 'redis://localhost:6379/4'
