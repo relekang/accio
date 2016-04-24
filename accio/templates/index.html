@@ -1,1 +1,16 @@
 {% extends "base.html" %}
+
+{% block content %}
+  <div style="text-align: center; margin-top: 20rem; font-size: 2em;">
+    {% if request.user.is_anonymous %}
+      <a href="{% url 'social:begin' 'github' %}">Login</a>
+    {% else %}
+      <a href="{% url 'admin:index' %}">Admin</a>
+    {% endif %}
+  </div>
+  {% if request.user.is_authenticated %}
+    <div style="text-align: center;">
+      <a href="{% url 'logout' %}">Logout</a>
+    </div>
+  {% endif %}
+{% endblock %}

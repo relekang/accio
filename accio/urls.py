@@ -9,7 +9,8 @@ urlpatterns = [
     url(r'^$', views.index, name='home'),
     url(r'^admin/', admin.site.urls),
 
-    url(r'^', include('social.apps.django_app.urls', namespace='social')),
+    url(r'', include('social.apps.django_app.urls', namespace='social')),
+    url(r'^auth/', include('django.contrib.auth.urls'))
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
