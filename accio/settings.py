@@ -36,6 +36,7 @@ AUTHENTICATION_BACKENDS = (
 )
 
 INSTALLED_APPS = [
+    'accio.deployments',
     'accio.organizations',
     'accio.projects',
     'accio.users',
@@ -116,5 +117,7 @@ MEDIA_URL = '/uploads/'
 MEDIA_ROOT = os.path.join(REPO_DIR, 'uploads')
 
 CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
 CELERY_ACCEPT_CONTENT = ['json']
 BROKER_URL = 'redis://localhost:6379/4'
