@@ -36,13 +36,13 @@ class TaskResult(models.Model):
     def display_result(self):
         output = ''
         line = '----------------------------------'
-        if self.config:
+        if self.config and 'commands' in self.config:
             for command in self.config['commands']:
                 output += '{0}\n'.format(command)
                 output += '{1} STDOUT: {1}\n{0}\n\n'.format(self.result[command]['stdout'], line)
                 output += '{1} STDERR: {1}\n{0}\n\n'.format(self.result[command]['stderr'], line)
 
-        return self.result
+        return output or self.result
 
     def run(self):
         self.started_at = timezone.now()
