@@ -24,3 +24,9 @@ class DeploymentAdmin(admin.ModelAdmin):
     list_display = ['project', 'ref', 'status', 'started_at', 'finished_at']
     inlines = [DeploymentTaskStackedInline]
     readonly_fields = ['project', 'status', 'ref', 'started_at', 'finished_at']
+
+    def get_queryset(self, request):
+        queryset = super().get_queryset(request)
+        if not request.user.is_superuser:
+            queryset = queryset.filter(project__owner__members=request.user)
+        return queryset

@@ -25,3 +25,9 @@ class ProjectAdmin(admin.ModelAdmin):
         )
 
     deploy_latest.short_description = 'Deploy latest main branch'
+
+    def get_queryset(self, request):
+        queryset = super().get_queryset(request)
+        if not request.user.is_superuser:
+            queryset = queryset.filter(owner__members=request.user)
+        return queryset
