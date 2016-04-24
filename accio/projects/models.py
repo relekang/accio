@@ -54,6 +54,9 @@ class DeploymentTask(models.Model):
     order = models.IntegerField(blank=True)
     config = JSONField(null=True, blank=True)
 
+    class Meta:
+        ordering = ['order']
+
     def save(self, *args, **kwargs):
         if not self.order:
             self.order = self.project.tasks.count() + 1

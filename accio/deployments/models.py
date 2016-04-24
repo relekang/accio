@@ -29,6 +29,9 @@ class TaskResult(models.Model):
     finished_at = models.DateTimeField(null=True, blank=True)
     status = models.CharField(max_length=40, db_index=True)
 
+    class Meta:
+        ordering = ['order']
+
     @property
     def display_result(self):
         output = ''
