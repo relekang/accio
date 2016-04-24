@@ -1,3 +1,4 @@
+from django.conf import settings
 from paramiko import SSHClient, AutoAddPolicy
 
 from .base import Runner
@@ -11,7 +12,7 @@ class SshRunner(Runner):
         client.connect(
             hostname=task.config['hostname'],
             username=task.config['username'],
-            look_for_keys=True,
+            key_filename=settings.PRIVATE_KEY_FILENAME
         )
 
         task.result = {}
