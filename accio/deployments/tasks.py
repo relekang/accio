@@ -7,10 +7,12 @@ def deploy(deployment_id):
     from .models import Deployment
     deployment = Deployment.objects.get(pk=deployment_id)
     deployment.started_at = timezone.now()
-    deployment.save(update_fields=['started_at'])
+    deployment.status = 'pending'
+    deployment.save(update_fields=['started_at', 'status'])
 
     for task in deployment.project.tasks.all():
         task.run(deployment)
 
     deployment.finished_at = timezone.now()
-    deployment.save(update_fields=['finished_at'])
+    deployment.status = deployment.evaluate_status()
+    deployment.save(update_fields=['finished_at', 'status'])

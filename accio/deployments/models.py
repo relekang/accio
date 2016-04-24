@@ -17,6 +17,15 @@ class Deployment(models.Model):
     def start(self):
         tasks.deploy.delay(self.pk)
 
+    def evaluate_status(self):
+        exit_code_sum = 0
+        for result in self.task_results.all():
+            exit_code_sum += result.exit_code
+
+        if exit_code_sum == 0:
+            return 'success'
+        return 'failure'
+
 
 class TaskResult(models.Model):
     task_type = models.CharField(max_length=30, choices=DeploymentTaskType.CHOICES)
@@ -31,6 +40,15 @@ class TaskResult(models.Model):
 
     class Meta:
         ordering = ['order']
+
+    @property
+    def exit_code(self):
+        for key in self.result.keys():
+            exit_code = self.result[key]['exit_code']
+            if exit_code != 0:
+                return exit_code
+
+        return 0
 
     @property
     def display_result(self):
