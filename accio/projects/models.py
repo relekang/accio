@@ -13,6 +13,9 @@ class Project(models.Model):
 
     @property
     def last_deploy(self):
+        deployment = self.deployments.last()
+        if deployment:
+            return '{finished_at} - {ref}'.format(**deployment.__dict__)
         return 'Not deployed yet'
 
     @property
