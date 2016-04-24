@@ -36,17 +36,27 @@ class TaskResult(models.Model):
     def display_result(self):
         output = ''
         line = '----------------------------------'
-        if self.config and 'commands' in self.config:
-            for command in self.config['commands']:
-                output += '{0}\n'.format(command)
-                output += '{1} STDOUT: {1}\n{0}\n\n'.format(self.result[command]['stdout'], line)
-                output += '{1} STDERR: {1}\n{0}\n\n'.format(self.result[command]['stderr'], line)
+        if self.config:
+            if self.task_type == DeploymentTaskType.SSH:
+                for command in self.config['commands']:
+                    output += '{0}  ({1}) \n'.format(command, self.result[command]['exit_code'])
+                    output += '{0}{0}\n{1}\n\n'.format(line, self.result[command]['stdout'])
+            elif self.task_type == DeploymentTaskType.GIT_SSH:
+                print('.....')
+                exit_code = 0
+                for key in self.result.keys():
+                    value = self.result[key]
+                    exit_code += value['exit_code']
+                    if value['stdout']:
+                        output += '{0}\n'.format(value['stdout'])
+                if exit_code > 0:
+                    output += 'It failed'
 
         return output or self.result
 
     def run(self):
         self.started_at = timezone.now()
         self.save(update_fields=['started_at'])
-        get_runner_for_task_type(self.task_type).run_tasks(self)
+        get_runner_for_task_type(self.task_type).run_task(self)
         self.finished_at = timezone.now()
         self.save(update_fields=['finished_at'])
