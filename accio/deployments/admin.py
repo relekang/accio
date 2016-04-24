@@ -6,12 +6,13 @@ from .models import Deployment, TaskResult
 class DeploymentTaskStackedInline(admin.StackedInline):
     model = TaskResult
     extra = 0
+    exclude = ['result']
     readonly_fields = [
         'task_type',
         'order',
         'config',
         'deployment',
-        'result',
+        'display_result',
         'started_at',
         'finished_at',
         'status',
