@@ -7,6 +7,7 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.index, name='home'),
+    url(r'^public-key/$', views.public_key, name='public_key'),
     url(r'^admin/', admin.site.urls),
 
     url(r'', include('social.apps.django_app.urls', namespace='social')),
