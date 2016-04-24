@@ -39,7 +39,7 @@ class TaskResult(models.Model):
                 output += '{1} STDOUT: {1}\n{0}\n\n'.format(self.result[command]['stdout'], line)
                 output += '{1} STDERR: {1}\n{0}\n\n'.format(self.result[command]['stderr'], line)
 
-        return output
+        return self.result
 
     def run(self):
         self.started_at = timezone.now()

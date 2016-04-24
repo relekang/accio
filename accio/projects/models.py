@@ -40,9 +40,11 @@ class Project(models.Model):
 
 class DeploymentTaskType(object):
     SSH = 'SSH'
+    GIT_SSH = 'GIT_SSH'
 
     CHOICES = (
-        ('SSH', SSH),
+        (SSH, 'SSH'),
+        (GIT_SSH, 'Git over SSH'),
     )
 
 
