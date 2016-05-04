@@ -11,7 +11,8 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
     url(r'', include('social.apps.django_app.urls', namespace='social')),
-    url(r'^auth/', include('django.contrib.auth.urls'))
+    url(r'^auth/', include('django.contrib.auth.urls')),
+    url(r'^webhooks/', include('accio.webhooks.urls', namespace='webhooks')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

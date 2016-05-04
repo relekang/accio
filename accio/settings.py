@@ -22,13 +22,15 @@ SECRET_KEY = secrets.get('secret_key', 'a secret')
 AUTH_USER_MODEL = 'users.User'
 LOGIN_REDIRECT_URL = '/admin/'
 
+SERVER_URL = secrets.get('server_url', 'http://127.0.0.1:8000')
+
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
 SOCIAL_AUTH_GITHUB_KEY = secrets.get('social_auth_github_key', '')
 SOCIAL_AUTH_GITHUB_SECRET = secrets.get('social_auth_github_secret', '')
 
 SOCIAL_AUTH_STORAGE = 'social.apps.django_app.default.models.DjangoStorage'
-SOCIAL_AUTH_GITHUB_SCOPE = ['read:org', 'repo']
+SOCIAL_AUTH_GITHUB_SCOPE = ['read:org', 'repo', 'admin:repo_hook']
 
 AUTHENTICATION_BACKENDS = (
     'social.backends.github.GithubOAuth2',

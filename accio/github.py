@@ -2,6 +2,7 @@ import json
 
 import requests
 from django.conf import settings
+from django.core.urlresolvers import reverse
 
 
 class ApiRequestError(Exception):
@@ -24,7 +25,7 @@ def api_request(url, token, data=None, page=None):
     if settings.DEBUG:
         print((response.headers.get('X-RateLimit-Remaining')))
 
-    if response.status_code != 200:
+    if response.status_code < 400:
         raise ApiRequestError(response)
 
     return response
@@ -36,3 +37,30 @@ def get_latest_commit_hash(**kwargs):
         kwargs['token']
     ).json()
     return branch_info['commit']['sha']
+
+
+def has_webhook(**kwargs):
+    hooks = api_request(
+        '/repos/{owner}/{name}/hooks'.format(**kwargs),
+        kwargs['token']
+    ).json()
+    for hook in hooks:
+        if hook['config']['url'] == settings.SERVER_URL + reverse('webhooks:github'):
+            return True
+    return False
+
+
+def add_webhook(**kwargs):
+    return api_request(
+        '/repos/{owner}/{name}/hooks'.format(**kwargs),
+        kwargs['token'],
+        data={
+            'name': 'web',
+            'events': [],
+            'active': True,
+            'config': {
+                'url': settings.SERVER_URL + reverse('webhooks:github'),
+                'content_type': 'json'
+            }
+        }
+    ).json()

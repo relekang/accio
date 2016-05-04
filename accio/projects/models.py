@@ -1,6 +1,7 @@
 from django.contrib.postgres.fields.jsonb import JSONField
 from django.db import models
 
+from . import tasks
 from .. import github
 
 
@@ -8,6 +9,10 @@ class Project(models.Model):
     owner = models.ForeignKey('organizations.Organization')
     name = models.CharField(max_length=200)
     vcs_url = models.TextField()
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        tasks.update_webhooks.delay(self.pk)
 
     def __str__(self):
         return self.name
