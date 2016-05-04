@@ -28,7 +28,7 @@ SOCIAL_AUTH_GITHUB_KEY = secrets.get('social_auth_github_key', '')
 SOCIAL_AUTH_GITHUB_SECRET = secrets.get('social_auth_github_secret', '')
 
 SOCIAL_AUTH_STORAGE = 'social.apps.django_app.default.models.DjangoStorage'
-SOCIAL_AUTH_GITHUB_SCOPE = ['read:org']
+SOCIAL_AUTH_GITHUB_SCOPE = ['read:org', 'repo']
 
 AUTHENTICATION_BACKENDS = (
     'social.backends.github.GithubOAuth2',

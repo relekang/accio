@@ -7,3 +7,7 @@ class Organization(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def github_token(self):
+        return self.members.all().order_by('?').first().github_token

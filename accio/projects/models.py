@@ -1,6 +1,7 @@
-import requests
 from django.contrib.postgres.fields.jsonb import JSONField
 from django.db import models
+
+from .. import github
 
 
 class Project(models.Model):
@@ -24,18 +25,18 @@ class Project(models.Model):
     def vcs_owner(self):
         return self.owner.name
 
-    def get_latest_commit_hash(self, branch='master'):
-        branch_info = requests.get(
-            'https://api.github.com/repos/{self.vcs_owner}/{self.name}/branches/{branch}'.format(
-                self=self,
-                branch=branch
-            )
-        ).json()
-        return branch_info['commit']['sha']
+    @property
+    def vcs_token(self):
+        return self.owner.github_token
 
     def deploy_latest(self, branch='master'):
-        hash = self.get_latest_commit_hash(branch)
-        self.deployments.create(ref=hash).start()
+        ref = github.get_latest_commit_hash(
+            owner=self.vcs_owner,
+            name=self.name,
+            branch=branch,
+            token=self.vcs_token
+        )
+        self.deployments.create(ref=ref).start()
 
 
 class DeploymentTaskType(object):
