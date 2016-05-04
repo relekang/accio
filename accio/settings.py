@@ -55,6 +55,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+if secrets.get('raven_dsn', ''):
+    import raven
+    INSTALLED_APPS.append('raven.contrib.django.raven_compat')
+
+    RAVEN_CONFIG = {
+        'dsn': secrets.get('raven_dsn', ''),
+        'release': raven.fetch_git_sha(os.path.dirname(__file__)),
+    }
+
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
