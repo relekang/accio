@@ -25,7 +25,7 @@ def api_request(url, token, data=None, page=None):
     if settings.DEBUG:
         print((response.headers.get('X-RateLimit-Remaining')))
 
-    if response.status_code < 400:
+    if response.status_code >= 400:
         raise ApiRequestError(response)
 
     return response
