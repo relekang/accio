@@ -48,7 +48,7 @@ def update_or_create_webhook(project):
 
 def webhook_settings(secret):
     return dict(
-        events=['push'],
+        events=WEBHOOK_EVENTS,
         config={
             'url': settings.SERVER_URL + str(WEBHOOK_PATH),
             'content_type': 'json',
