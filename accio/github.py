@@ -55,7 +55,7 @@ def webhook_settings(secret):
 
 
 def add_webhook(repository, secret):
-    return repository.create_hook(**webhook_settings(secret))
+    return repository.create_hook(name='web', **webhook_settings(secret))
 
 
 def update_webhook(hook, secret):
