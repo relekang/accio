@@ -12,7 +12,7 @@ class Project(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        tasks.update_webhooks.delay(self.pk)
+        tasks.update_webhook.delay(self.pk)
 
     def __str__(self):
         return self.name
@@ -35,12 +35,7 @@ class Project(models.Model):
         return self.owner.github_token
 
     def deploy_latest(self, branch='master'):
-        ref = github.get_latest_commit_hash(
-            owner=self.vcs_owner,
-            name=self.name,
-            branch=branch,
-            token=self.vcs_token
-        )
+        ref = github.get_latest_commit_hash(self, branch)
         self.deployments.create(ref=ref).start()
 
 

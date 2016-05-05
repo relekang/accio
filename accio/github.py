@@ -1,66 +1,62 @@
-import json
+import hashlib
 
-import requests
 from django.conf import settings
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse_lazy
+from github3 import login
+
+WEBHOOK_PATH = reverse_lazy('webhooks:github')
+WEBHOOK_EVENTS = ['status', 'push', 'deployment']
 
 
-class ApiRequestError(Exception):
-    pass
+def create_repository_secret(repository):
+    return hashlib.sha224(
+        (settings.WEBHOOK_SECRET_KEY + repository.name).encode()
+    ).hexdigest()
 
 
-def api_request(url, token, data=None, page=None):
-    url = "https://api.github.com%s?access_token=%s" % (url, token)
-    if page:
-        url += '&page=%s' % page
-    if data is None:
-        response = requests.get(url)
-    else:
-        headers = {
-            'Content-type': 'application/json',
-            'Accept': 'application/vnd.github.she-hulk-preview+json'
-        }
-        response = requests.post(url, data=json.dumps(data), headers=headers)
-
-    if settings.DEBUG:
-        print((response.headers.get('X-RateLimit-Remaining')))
-
-    if response.status_code >= 400:
-        raise ApiRequestError(response)
-
-    return response
+def login_github(project):
+    return login(token=project.vcs_token)
 
 
-def get_latest_commit_hash(**kwargs):
-    branch_info = api_request(
-        '/repos/{owner}/{name}/branches/{branch}'.format(**kwargs),
-        kwargs['token']
-    ).json()
-    return branch_info['commit']['sha']
+def get_github_repository(project):
+    return login_github(project).repository(
+        owner=project.owner.name,
+        repository=project.name
+    )
 
 
-def has_webhook(**kwargs):
-    hooks = api_request(
-        '/repos/{owner}/{name}/hooks'.format(**kwargs),
-        kwargs['token']
-    ).json()
-    for hook in hooks:
-        if hook['config']['url'] == settings.SERVER_URL + reverse('webhooks:github'):
-            return True
-    return False
+def get_latest_commit_hash(project, branch):
+    repository = get_github_repository(project)
+    return repository.branch(branch).commit.sha
 
 
-def add_webhook(**kwargs):
-    return api_request(
-        '/repos/{owner}/{name}/hooks'.format(**kwargs),
-        kwargs['token'],
-        data={
-            'name': 'web',
-            'events': [],
-            'active': True,
-            'config': {
-                'url': settings.SERVER_URL + reverse('webhooks:github'),
-                'content_type': 'json'
-            }
-        }
-    ).json()
+def update_or_create_webhook(project):
+    repository = get_github_repository(project)
+    secret = create_repository_secret(project)
+    print(secret)
+    for hook in repository.iter_hooks():
+        hook_url = hook.config.get('url')
+        if hook_url == settings.SERVER_URL + str(WEBHOOK_PATH):
+            return update_webhook(hook, secret)
+
+    return add_webhook(repository, secret)
+
+
+def webhook_settings(secret):
+    return dict(
+        events=['push'],
+        config={
+            'url': settings.SERVER_URL + str(WEBHOOK_PATH),
+            'content_type': 'json',
+            'secret': secret,
+        },
+        active=True
+    )
+
+
+def add_webhook(repository, secret):
+    return repository.create_hook(**webhook_settings(secret))
+
+
+def update_webhook(hook, secret):
+    return hook.edit(**webhook_settings(secret))

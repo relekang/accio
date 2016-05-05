@@ -5,6 +5,7 @@ djangorestframework==3.3.3
 python-social-auth==0.2.18
 requests==2.9.1
 paramiko==1.16.0
+github3.py==0.9.5
 
 celery==3.1.23
 django-celery==3.1.17

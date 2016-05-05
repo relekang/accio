@@ -18,6 +18,7 @@ secrets = load_secrets()
 DEBUG = secrets.get('debug', True)
 ALLOWED_HOSTS = secrets.get('allowed_hosts', [])
 SECRET_KEY = secrets.get('secret_key', 'a secret')
+WEBHOOK_SECRET_KEY = secrets.get('webhook_secret_key', 'super secret')
 
 AUTH_USER_MODEL = 'users.User'
 LOGIN_REDIRECT_URL = '/admin/'
