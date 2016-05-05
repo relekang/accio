@@ -20,6 +20,4 @@ class GithubWebhookView(WebhookView):
 
     def validate_webhook_origin(self, request, payload, project):
         if not validate_webhook(request=request, project=project):
-            # raise WebhookError('Invalid signature', 403)
-            # silently fails o.O
-            pass
+            raise WebhookError('Invalid signature', 403)

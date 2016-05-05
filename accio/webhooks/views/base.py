@@ -1,10 +1,13 @@
 import json
+import logging
 
 from django.http import HttpResponse
 from django.views.generic import View
 
 from ...projects.models import Project
 from ..errors import WebhookError
+
+logger = logging.getLogger(__name__)
 
 
 class WebhookView(View):
@@ -14,6 +17,7 @@ class WebhookView(View):
         try:
             self.handle_webhook(request, payload)
         except WebhookError as error:
+            logger.exception(error, extra={'request': request.__dict__})
             return HttpResponse(error.message, status=error.status_code)
         return HttpResponse('Deploy queued', status=200)
 
