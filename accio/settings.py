@@ -61,7 +61,7 @@ if secrets.get('raven_dsn', ''):
 
     RAVEN_CONFIG = {
         'dsn': secrets.get('raven_dsn', ''),
-        'release': raven.fetch_git_sha(os.path.dirname(__file__)),
+        'release': raven.fetch_git_sha(REPO_DIR),
     }
 
 MIDDLEWARE_CLASSES = [
