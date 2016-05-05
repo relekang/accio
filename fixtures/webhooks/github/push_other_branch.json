@@ -1,0 +1,162 @@
+{
+  "ref": "refs/heads/other-branch",
+  "before": "24ed97f09707a404bf81062a99a485c547d92d11",
+  "after": "b17e81679011c41f95bc66c2aad3c4d2400781e3",
+  "created": false,
+  "deleted": false,
+  "forced": false,
+  "base_ref": null,
+  "compare": "https://github.com/relekang/accio/compare/24ed97f09707...b17e81679011",
+  "commits": [
+    {
+      "id": "b17e81679011c41f95bc66c2aad3c4d2400781e3",
+      "tree_id": "b242e6f85135026af34a9e65d804a97e3fa6c152",
+      "distinct": true,
+      "message": "chore: Add tox setup",
+      "timestamp": "2016-05-05T12:42:59+02:00",
+      "url": "https://github.com/relekang/accio/commit/b17e81679011c41f95bc66c2aad3c4d2400781e3",
+      "author": {
+        "name": "Rolf Erik Lekang",
+        "email": "me@rolflekang.com",
+        "username": "relekang"
+      },
+      "committer": {
+        "name": "Rolf Erik Lekang",
+        "email": "me@rolflekang.com",
+        "username": "relekang"
+      },
+      "added": [
+        "setup.cfg",
+        "tox.ini"
+      ],
+      "removed": [
+      ],
+      "modified": [
+      ]
+    }
+  ],
+  "head_commit": {
+    "id": "b17e81679011c41f95bc66c2aad3c4d2400781e3",
+    "tree_id": "b242e6f85135026af34a9e65d804a97e3fa6c152",
+    "distinct": true,
+    "message": "chore: Add tox setup",
+    "timestamp": "2016-05-05T12:42:59+02:00",
+    "url": "https://github.com/relekang/accio/commit/b17e81679011c41f95bc66c2aad3c4d2400781e3",
+    "author": {
+      "name": "Rolf Erik Lekang",
+      "email": "me@rolflekang.com",
+      "username": "relekang"
+    },
+    "committer": {
+      "name": "Rolf Erik Lekang",
+      "email": "me@rolflekang.com",
+      "username": "relekang"
+    },
+    "added": [
+      "setup.cfg",
+      "tox.ini"
+    ],
+    "removed": [
+    ],
+    "modified": [
+    ]
+  },
+  "repository": {
+    "id": 56914393,
+    "name": "accio",
+    "full_name": "relekang/accio",
+    "owner": {
+      "name": "relekang",
+      "email": "me@rolflekang.com"
+    },
+    "private": false,
+    "html_url": "https://github.com/relekang/accio",
+    "description": "Automate your deployments :rocket:",
+    "fork": false,
+    "url": "https://github.com/relekang/accio",
+    "forks_url": "https://api.github.com/repos/relekang/accio/forks",
+    "keys_url": "https://api.github.com/repos/relekang/accio/keys{/key_id}",
+    "collaborators_url": "https://api.github.com/repos/relekang/accio/collaborators{/collaborator}",
+    "teams_url": "https://api.github.com/repos/relekang/accio/teams",
+    "hooks_url": "https://api.github.com/repos/relekang/accio/hooks",
+    "issue_events_url": "https://api.github.com/repos/relekang/accio/issues/events{/number}",
+    "events_url": "https://api.github.com/repos/relekang/accio/events",
+    "assignees_url": "https://api.github.com/repos/relekang/accio/assignees{/user}",
+    "branches_url": "https://api.github.com/repos/relekang/accio/branches{/branch}",
+    "tags_url": "https://api.github.com/repos/relekang/accio/tags",
+    "blobs_url": "https://api.github.com/repos/relekang/accio/git/blobs{/sha}",
+    "git_tags_url": "https://api.github.com/repos/relekang/accio/git/tags{/sha}",
+    "git_refs_url": "https://api.github.com/repos/relekang/accio/git/refs{/sha}",
+    "trees_url": "https://api.github.com/repos/relekang/accio/git/trees{/sha}",
+    "statuses_url": "https://api.github.com/repos/relekang/accio/statuses/{sha}",
+    "languages_url": "https://api.github.com/repos/relekang/accio/languages",
+    "stargazers_url": "https://api.github.com/repos/relekang/accio/stargazers",
+    "contributors_url": "https://api.github.com/repos/relekang/accio/contributors",
+    "subscribers_url": "https://api.github.com/repos/relekang/accio/subscribers",
+    "subscription_url": "https://api.github.com/repos/relekang/accio/subscription",
+    "commits_url": "https://api.github.com/repos/relekang/accio/commits{/sha}",
+    "git_commits_url": "https://api.github.com/repos/relekang/accio/git/commits{/sha}",
+    "comments_url": "https://api.github.com/repos/relekang/accio/comments{/number}",
+    "issue_comment_url": "https://api.github.com/repos/relekang/accio/issues/comments{/number}",
+    "contents_url": "https://api.github.com/repos/relekang/accio/contents/{+path}",
+    "compare_url": "https://api.github.com/repos/relekang/accio/compare/{base}...{head}",
+    "merges_url": "https://api.github.com/repos/relekang/accio/merges",
+    "archive_url": "https://api.github.com/repos/relekang/accio/{archive_format}{/ref}",
+    "downloads_url": "https://api.github.com/repos/relekang/accio/downloads",
+    "issues_url": "https://api.github.com/repos/relekang/accio/issues{/number}",
+    "pulls_url": "https://api.github.com/repos/relekang/accio/pulls{/number}",
+    "milestones_url": "https://api.github.com/repos/relekang/accio/milestones{/number}",
+    "notifications_url": "https://api.github.com/repos/relekang/accio/notifications{?since,all,participating}",
+    "labels_url": "https://api.github.com/repos/relekang/accio/labels{/name}",
+    "releases_url": "https://api.github.com/repos/relekang/accio/releases{/id}",
+    "deployments_url": "https://api.github.com/repos/relekang/accio/deployments",
+    "created_at": 1461408418,
+    "updated_at": "2016-05-05T10:04:24Z",
+    "pushed_at": 1462444990,
+    "git_url": "git://github.com/relekang/accio.git",
+    "ssh_url": "git@github.com:relekang/accio.git",
+    "clone_url": "https://github.com/relekang/accio.git",
+    "svn_url": "https://github.com/relekang/accio",
+    "homepage": "",
+    "size": 42,
+    "stargazers_count": 0,
+    "watchers_count": 0,
+    "language": "Python",
+    "has_issues": true,
+    "has_downloads": true,
+    "has_wiki": true,
+    "has_pages": false,
+    "forks_count": 0,
+    "mirror_url": null,
+    "open_issues_count": 0,
+    "forks": 0,
+    "open_issues": 0,
+    "watchers": 0,
+    "default_branch": "master",
+    "stargazers": 0,
+    "master_branch": "master"
+  },
+  "pusher": {
+    "name": "relekang",
+    "email": "me@rolflekang.com"
+  },
+  "sender": {
+    "login": "relekang",
+    "id": 476364,
+    "avatar_url": "https://avatars.githubusercontent.com/u/476364?v=3",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/relekang",
+    "html_url": "https://github.com/relekang",
+    "followers_url": "https://api.github.com/users/relekang/followers",
+    "following_url": "https://api.github.com/users/relekang/following{/other_user}",
+    "gists_url": "https://api.github.com/users/relekang/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/relekang/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/relekang/subscriptions",
+    "organizations_url": "https://api.github.com/users/relekang/orgs",
+    "repos_url": "https://api.github.com/users/relekang/repos",
+    "events_url": "https://api.github.com/users/relekang/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/relekang/received_events",
+    "type": "User",
+    "site_admin": false
+  }
+}

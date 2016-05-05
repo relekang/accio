@@ -3,7 +3,7 @@ from django.db import models
 from django.utils import timezone
 
 from ..runners import get_runner_for_task_type
-from ..projects.models import DeploymentTask, DeploymentTaskType
+from ..projects.models import DeploymentTaskType
 from . import tasks
 
 
@@ -60,7 +60,6 @@ class TaskResult(models.Model):
                     output += '{0}  ({1}) \n'.format(command, self.result[command]['exit_code'])
                     output += '{0}{0}\n{1}\n\n'.format(line, self.result[command]['stdout'])
             elif self.task_type == DeploymentTaskType.GIT_SSH:
-                print('.....')
                 exit_code = 0
                 for key in self.result.keys():
                     value = self.result[key]
