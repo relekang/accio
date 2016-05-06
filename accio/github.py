@@ -70,10 +70,15 @@ def validate_webhook(request, project):
     secret = create_project_secret(project)
     name, signature_digest = request.META.get('HTTP_X_HUB_SIGNATURE').split('=')
 
-    hash_builder = hmac.new(secret.encode(), msg=request.body, digestmod=getattr(hashlib, name))
-    expected_digest = hash_builder.hexdigest()
+    expected_digest = hmac.new(
+        secret.encode(),
+        msg=request.body,
+        digestmod=getattr(hashlib, name),
+    ).hexdigest()
+
     if hmac.compare_digest(expected_digest, signature_digest):
         return True
+
     logger.error('Github webhook validation failed', extra={
         'signature_digest': signature_digest,
         'expected_digest': expected_digest,
