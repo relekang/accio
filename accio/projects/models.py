@@ -9,6 +9,7 @@ class Project(models.Model):
     owner = models.ForeignKey('organizations.Organization')
     name = models.CharField(max_length=200)
     vcs_url = models.TextField()
+    deploy_on = models.CharField(max_length=60, default='status')
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

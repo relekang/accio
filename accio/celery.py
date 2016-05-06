@@ -1,10 +1,10 @@
 import os
 
 from celery import Celery
+from django.conf import settings  # noqa
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'accio.settings')
 
-from django.conf import settings  # noqa
 
 app = Celery('accio')
 

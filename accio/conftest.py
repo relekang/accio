@@ -1,3 +1,5 @@
+import hashlib
+import hmac
 import json
 import os
 
@@ -35,12 +37,19 @@ def fixture_loader():
 
 @pytest.fixture
 def github_webhooks(client, fixture_loader):
-    def send_webhook(name, signature):
+    def send_webhook(name, event):
+        fixture = json.dumps(fixture_loader('webhooks/github/{0}.json'.format(name)))
+        signature = hmac.new(
+            b'af8313342e360d966a57c3fb373c74ac9ea616bead86404dfa07d362',
+            msg=fixture.encode(),
+            digestmod=hashlib.sha1,
+        ).hexdigest()
+
         return client.post(
             reverse('webhooks:github'),
-            json.dumps(fixture_loader('webhooks/github/{0}.json'.format(name))),
+            fixture,
             content_type='application/json',
-            HTTP_X_GITHUB_EVENT=name,
+            HTTP_X_GITHUB_EVENT=event,
             HTTP_X_HUB_SIGNATURE='sha1={0}'.format(signature)
         )
 

@@ -22,23 +22,31 @@ class WebhookView(View):
         return HttpResponse('Deploy queued', status=200)
 
     def handle_webhook(self, request, payload):
-        ref = self.get_ref(payload)
+        event = self.get_event(request)
+        ref = self.get_ref(event, payload)
 
         try:
-            project = self.get_project(payload)
+            project = self.get_project(event, payload)
         except Project.DoesNotExist:
             raise WebhookError('Project does not exist', 404)
 
         self.validate_webhook_origin(request, payload, project)
         self.validate_webhook_payload(request, payload, project)
 
-        project.deployments.create(project=project, ref=ref).start()
+        if event == project.deploy_on:
+            project.deployments.create(project=project, ref=ref).start()
 
-    def get_project(self, payload):
+    def get_project(self, event, payload):
         raise NotImplementedError('get_project is not implemented')
 
-    def get_ref(self, payload):
+    def get_ref(self, event, payload):
         raise NotImplementedError('get_ref is not implemented')
+
+    def get_event(self, request):
+        raise NotImplementedError('get_event is not implemented')
+
+    def is_branch(self, branch, event, payload):
+        raise NotImplementedError('is_branch is not implemented')
 
     def validate_webhook_origin(self, request, payload, project):
         raise NotImplementedError('validate_webhook_origin is not implemented')

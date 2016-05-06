@@ -2,7 +2,8 @@ from django.contrib import admin
 from django.template.defaultfilters import pluralize
 
 from accio.projects import tasks
-from .models import Project, DeploymentTask
+
+from .models import DeploymentTask, Project
 
 
 class DeploymentTaskTabularInlineAdmin(admin.TabularInline):
