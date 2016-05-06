@@ -2,9 +2,9 @@ from django.contrib.postgres.fields.jsonb import JSONField
 from django.db import models
 from django.utils import timezone
 
-from ..runners import get_runner_for_task_type
-from ..projects.models import DeploymentTaskType
 from . import tasks
+from ..projects.models import DeploymentTaskType
+from ..runners import get_runner_for_task_type
 
 
 class Deployment(models.Model):

@@ -1,5 +1,5 @@
 from django.conf import settings
-from paramiko import SSHClient, AutoAddPolicy
+from paramiko import AutoAddPolicy, SSHClient
 
 from .base import Runner
 
