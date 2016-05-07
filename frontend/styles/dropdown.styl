@@ -1,0 +1,81 @@
+dropdown-background-color = #fafafa
+dropdown-border-color = darken(dropdown-background-color, 10%)
+dropdown-text-color = #333
+
+.dropdown-wrapper
+  position relative
+  cursor pointer
+
+.dropdown
+  display block
+  left -90%
+  position absolute
+  top 3rem
+  font-size 0.92em
+
+.dropdown-inner
+  background-color dropdown-background-color
+  border 1px solid dropdown-border-color
+  min-width 200px
+  color dropdown-text-color
+  padding 0 0.4rem
+
+  a,
+  a:visited
+    display block
+    color dropdown-text-color
+    padding 0.6rem
+    border-bottom 1px solid dropdown-border-color
+
+    &:last-child
+      border-bottom 0
+
+    &:hover
+      font-weight 400
+
+
+.dropdown-inner:after,
+.dropdown-inner:before
+	bottom 98%
+	left 70%
+	border solid transparent
+	content " "
+	height 0
+	width 0
+	position absolute
+	pointer-events none
+
+
+.dropdown-inner:after
+  border-color blank
+  border-bottom-color dropdown-background-color
+  border-width 16px
+  margin-left -16px
+
+.dropdown-inner:before
+	border-color blank
+	border-bottom-color dropdown-border-color
+	border-width 17px
+	margin-left -17px
+
+@media (min-width 500px)
+  .dropdown
+    left -50%
+
+  .dropdown-inner:after,
+  .dropdown-inner:before
+	  left 50%
+
+.dropdown-enter
+  opacity: 0.01;
+
+.dropdown-enter.dropdown-enter-active
+  opacity: 1;
+  transition: opacity 300ms ease-in;
+
+.dropdown-leave
+  opacity: 1;
+
+.dropdown-leave.dropdown-leave-active
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
