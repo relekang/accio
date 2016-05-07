@@ -13,7 +13,7 @@ class DeploymentTaskTabularInlineAdmin(admin.TabularInline):
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ['name', 'owner', 'last_deploy']
+    list_display = ['name', 'owner', 'last_deploy_description']
     inlines = [DeploymentTaskTabularInlineAdmin]
     actions = ['deploy_latest', 'update_webhook']
 

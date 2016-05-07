@@ -20,6 +20,10 @@ class Deployment(models.Model):
     finished_at = models.DateTimeField(null=True, blank=True)
     status = models.CharField(max_length=40, db_index=True)
 
+    @property
+    def short_ref(self):
+        return self.ref[:7]
+
     def start(self):
         if settings.DEBUG:
             tasks.deploy(self.pk)

@@ -6,13 +6,13 @@ from django.contrib import admin
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.index, name='home'),
     url(r'^public-key/$', views.public_key, name='public_key'),
     url(r'^admin/', admin.site.urls),
 
     url(r'', include('social.apps.django_app.urls', namespace='social')),
-    url(r'^auth/', include('django.contrib.auth.urls')),
+    url(r'', include('django.contrib.auth.urls')),
     url(r'^webhooks/', include('accio.webhooks.urls', namespace='webhooks')),
+    url(r'^', views.index, name='home'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

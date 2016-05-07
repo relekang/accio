@@ -24,6 +24,10 @@ class Project(models.Model):
 
     @property
     def last_deploy(self):
+        return self.deployments.last()
+
+    @property
+    def last_deploy_description(self):
         deployment = self.deployments.last()
         if deployment:
             if deployment.finished_at:

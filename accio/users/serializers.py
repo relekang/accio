@@ -15,4 +15,5 @@ class UserSerializer(serializers.ModelSerializer):
             'email',
             'is_staff',
             'is_anonymous',
+            'is_authenticated',
         )

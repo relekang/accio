@@ -1,9 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
- <title>Accio - deployment at ease</title>
+  <title>Accio - deployment at ease</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="/static/main.css" rel="stylesheet"/>
 </head>
 <body>
-{% block content %}{% endblock %}
+  <div id="app">
+    {% block content %}{% endblock %}
+  </div>
+
+  <script>
+  {% if user_info %} window.user = JSON.parse({{ user_info|safe }}); {% endif %}
+  {% if projects %} window.projects = JSON.parse({{ projects|safe }}); {% endif %}
+  </script>
+  <script src="/static/bundle.js"></script>
 </body>
 </html>
