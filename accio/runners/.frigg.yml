@@ -1,11 +1,11 @@
 tasks:
- tests:
- - tox
+  tests:
+    - tox
 
 services:
-- postgresql
+  - postgresql
 
 coverage:
- parser: python
- path: coverage.xml
+  parser: python
+  path: coverage.xml
 
