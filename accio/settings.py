@@ -15,6 +15,7 @@ def load_secrets():
 
 secrets = load_secrets()
 
+RUNNING_TESTS = False
 DEBUG = secrets.get('debug', True)
 ALLOWED_HOSTS = secrets.get('allowed_hosts', [])
 SECRET_KEY = secrets.get('secret_key', 'a secret')

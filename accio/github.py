@@ -23,6 +23,8 @@ def login_github(project):
 
 
 def get_github_repository(project):
+    if settings.RUNNING_TESTS:
+        return
     return login_github(project).repository(
         owner=project.owner.name,
         repository=project.name
@@ -30,11 +32,15 @@ def get_github_repository(project):
 
 
 def get_latest_commit_hash(project, branch):
+    if settings.RUNNING_TESTS:
+        return
     repository = get_github_repository(project)
     return repository.branch(branch).commit.sha
 
 
 def update_or_create_webhook(project):
+    if settings.RUNNING_TESTS:
+        return
     repository = get_github_repository(project)
     secret = create_project_secret(project)
 

@@ -8,6 +8,13 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 
 
+def pytest_configure(config):
+    settings.BROKER_BACKEND = 'memory'
+    settings.CELERY_ALWAYS_EAGER = True
+    settings.CELERY_EAGER_PROPAGATES_EXCEPTIONS = True
+    settings.RUNNING_TESTS = True
+
+
 @pytest.fixture
 def relekang_org():
     from .organizations.models import Organization
@@ -17,11 +24,13 @@ def relekang_org():
 @pytest.fixture
 def accio_project(relekang_org):
     from .projects.models import Project
-    return Project.objects.create(
+    project = Project(
         owner=relekang_org,
         name='accio',
-        vcs_url='git@github.com:relekang/accio.git'
+        vcs_url='git@github.com:relekang/accio.git',
     )
+    project.save(update_webhook=False)
+    return project
 
 
 @pytest.fixture

@@ -12,8 +12,12 @@ class Project(models.Model):
     deploy_on = models.CharField(max_length=60, default='status')
 
     def save(self, *args, **kwargs):
+        update_webhook = True
+        if 'update_webhook' in kwargs:
+            update_webhook = kwargs.pop('update_webhook')
         super().save(*args, **kwargs)
-        tasks.update_webhook.delay(self.pk)
+        if update_webhook:
+            tasks.update_webhook.delay(self.pk)
 
     def __str__(self):
         return '{self.owner.name}/{self.name}'.format(self=self)
