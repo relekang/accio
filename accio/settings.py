@@ -136,3 +136,5 @@ BROKER_URL = 'redis://localhost:6379/4'
 
 PRIVATE_KEY_FILENAME = secrets.get('private_key_filename', '~/.ssh/id_rsa')
 PUBLIC_KEY_FILENAME = '{0}.pub'.format(secrets.get('private_key_filename', '~/.ssh/id_rsa'))
+
+EMAIL_BACKEND = secrets.get('email_backend', 'django.core.mail.backends.console.EmailBackend')

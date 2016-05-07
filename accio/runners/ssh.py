@@ -1,7 +1,11 @@
+import logging
+
 from django.conf import settings
 from paramiko import AutoAddPolicy, SSHClient
 
 from .base import Runner
+
+logger = logging.getLogger(__name__)
 
 
 class SshRunner(Runner):
@@ -30,14 +34,19 @@ class SshRunner(Runner):
         return result
 
     def run_task(self, task):
-        client = self.set_up_client(task)
         task.result = {}
+        try:
+            client = self.set_up_client(task)
 
-        for command in self.get_commands(task):
-            task.result[command] = self.run_command(command, client)
+            for command in self.get_commands(task):
+                task.result[command] = self.run_command(command, client)
+                task.save()
+
+            client.close()
+        except FileNotFoundError as error:
+            logger.exception(error)
+            task.result['ssh'] = {'exit_code': 1, 'error': str(error)}
             task.save()
-
-        client.close()
 
     def get_commands(self, task):
         return task.config['commands']

@@ -1,3 +1,7 @@
+import json
+import logging
+
+from django.conf import settings
 from django.contrib.postgres.fields.jsonb import JSONField
 from django.db import models
 from django.utils import timezone
@@ -5,6 +9,8 @@ from django.utils import timezone
 from . import tasks
 from ..projects.models import DeploymentTaskType
 from ..runners import get_runner_for_task_type
+
+logger = logging.getLogger(__name__)
 
 
 class Deployment(models.Model):
@@ -15,15 +21,19 @@ class Deployment(models.Model):
     status = models.CharField(max_length=40, db_index=True)
 
     def start(self):
-        tasks.deploy.delay(self.pk)
+        if settings.DEBUG:
+            tasks.deploy(self.pk)
+        else:
+            tasks.deploy.delay(self.pk)
 
     def evaluate_status(self):
-        exit_code_sum = 0
-        for result in self.task_results.all():
-            exit_code_sum += result.exit_code
+        exit_code_sum = sum([
+            result.exit_code for result in self.task_results.all() if result.exit_code
+        ])
 
         if exit_code_sum == 0:
             return 'success'
+
         return 'failure'
 
 
@@ -43,6 +53,9 @@ class TaskResult(models.Model):
 
     @property
     def exit_code(self):
+        if self.result is None:
+            return None
+
         for key in self.result.keys():
             exit_code = self.result[key]['exit_code']
             if exit_code != 0:
@@ -57,19 +70,24 @@ class TaskResult(models.Model):
         if self.config:
             if self.task_type == DeploymentTaskType.SSH:
                 for command in self.config['commands']:
-                    output += '{0}  ({1}) \n'.format(command, self.result[command]['exit_code'])
-                    output += '{0}{0}\n{1}\n\n'.format(line, self.result[command]['stdout'])
+                    try:
+                        output += '{0}  ({1}) \n'.format(command, self.result[command]['exit_code'])
+                        output += '{0}{0}\n{1}\n\n'.format(line, self.result[command]['stdout'])
+                    except KeyError as error:
+                        logger.debug(str(error))
+
             elif self.task_type == DeploymentTaskType.GIT_SSH:
                 exit_code = 0
-                for key in self.result.keys():
-                    value = self.result[key]
-                    exit_code += value['exit_code']
-                    if value['stdout']:
-                        output += '{0}\n'.format(value['stdout'])
-                if exit_code > 0:
-                    output += 'It failed'
+                if self.result:
+                    for key in self.result.keys():
+                        value = self.result[key]
+                        exit_code += value['exit_code']
+                        if value['stdout']:
+                            output += '{0}\n'.format(value['stdout'])
+                    if exit_code > 0:
+                        output += 'It failed'
 
-        return output or self.result
+        return output or json.dumps(self.result)
 
     def run(self):
         self.started_at = timezone.now()

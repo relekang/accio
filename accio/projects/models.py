@@ -16,7 +16,7 @@ class Project(models.Model):
         tasks.update_webhook.delay(self.pk)
 
     def __str__(self):
-        return self.name
+        return '{self.owner.name}/{self.name}'.format(self=self)
 
     @property
     def last_deploy(self):
@@ -43,10 +43,14 @@ class Project(models.Model):
 class DeploymentTaskType(object):
     SSH = 'SSH'
     GIT_SSH = 'GIT_SSH'
+    EMAIL_NOTIFICATION = 'EMAIL_NOTIFICATION'
+    SLACK_NOTIFICATION = 'SLACK_NOTIFICATION'
 
     CHOICES = (
         (SSH, 'SSH'),
         (GIT_SSH, 'Git over SSH'),
+        (EMAIL_NOTIFICATION, 'Email notification'),
+        (SLACK_NOTIFICATION, 'Slack notification'),
     )
 
 
