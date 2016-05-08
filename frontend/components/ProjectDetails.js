@@ -1,11 +1,11 @@
 import moment from 'moment';
 import React, { PropTypes } from 'react';
-import { get } from 'lodash';
+import { get, map } from 'lodash';
 
 import './ProjectDetails.styl';
 
 const ProjectDetails = ({ project }) => (
-  <div className="ProjectDetails text-center">
+  <div className="ProjectDetails">
     <h1>{get(project.owner, 'name')} / {project.name}</h1>
     <h2>Last deployment</h2>
     {project.lastDeploy &&
@@ -13,6 +13,12 @@ const ProjectDetails = ({ project }) => (
       -
       {moment(get(project.lastDeploy, 'finishedAt')).fromNow()}</em>
     }
+    {map(project.lastDeploy.taskResults, task => (
+      <div>
+        <h3>{task.taskType}</h3>
+        <pre><code>{JSON.stringify(task.result, null, 2)}</code></pre>
+      </div>
+    ))}
   </div>
 );
 
