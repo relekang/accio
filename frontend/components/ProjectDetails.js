@@ -16,7 +16,12 @@ const ProjectDetails = ({ project }) => (
     {map(project.lastDeploy.taskResults, task => (
       <div>
         <h3>{task.taskType}</h3>
-        <pre><code>{JSON.stringify(task.result, null, 2)}</code></pre>
+        {map(task.result, ({ error, stdout, exitCode }, key) => (
+          <code>
+            $ <strong>{key}</strong> <span title="Exit code">({exitCode})</span>
+            <pre>{stdout || error}</pre>
+          </code>
+        ))}
       </div>
     ))}
   </div>
