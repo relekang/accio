@@ -22,7 +22,7 @@ SECRET_KEY = secrets.get('secret_key', 'a secret')
 WEBHOOK_SECRET_KEY = secrets.get('webhook_secret_key', 'super secret')
 
 AUTH_USER_MODEL = 'users.User'
-LOGIN_REDIRECT_URL = '/admin/'
+LOGIN_REDIRECT_URL = '/'
 
 SERVER_URL = secrets.get('server_url', 'http://127.0.0.1:8000')
 

@@ -3,8 +3,8 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { Link } from 'react-router';
 
 export default class UserMenu extends Component {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
 
     this.state = { showDropdown: false };
     this.onToggleDropdown = this.onToggleDropdown.bind(this);
@@ -23,7 +23,7 @@ export default class UserMenu extends Component {
           </span>
         :
           <span>
-            <Link to="">Login</Link>
+            <a href="/login/github/">Login</a>
           </span>
         }
 
