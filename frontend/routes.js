@@ -21,6 +21,11 @@ function loginRequired(nextState, replace) {
 export default (
   <Route path="/" component={App}>
     <IndexRoute getComponent={getContainer('LandingPage')} />
+    <Route
+      path="projects/:owner/:name"
+      getComponent={getContainer('ProjectDetails')}
+      onEnter={loginRequired}
+    />
     <Route path="*" getComponent={getContainer('NotFound')} onEnter={loginRequired} />
   </Route>
 );
