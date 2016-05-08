@@ -16,12 +16,14 @@ const ProjectDetails = ({ project }) => (
     {map(project.lastDeploy.taskResults, task => (
       <div>
         <h3>{task.taskType}</h3>
-        {map(task.result, ({ error, stdout, exitCode }, key) => (
-          <code>
-            $ <strong>{key}</strong> <span title="Exit code">({exitCode})</span>
-            <pre>{stdout || error}</pre>
-          </code>
-        ))}
+        <code className="overflow-x">
+          {map(task.result, ({ error, stdout, exitCode }, key) => (
+            <div className="padding">
+              $ <strong>{key}</strong> <span title="Exit code">({exitCode})</span>
+              <pre>{stdout || error}</pre>
+            </div>
+          ))}
+        </code>
       </div>
     ))}
   </div>
