@@ -3,10 +3,10 @@ import React, { PropTypes } from 'react';
 import { get, map } from 'lodash';
 
 import { Deployment } from '../propTypes';
-import './ProjectOverview.styl';
+import './ProjectsOverview.styl';
 
-const ProjectOverview = ({ projects }) => (
-  <div className="ProjectOverview">
+const ProjectsOverview = ({ projects }) => (
+  <div className="ProjectsOverview">
     <h2>Projects</h2>
     {map(projects, project =>
       <Project key={project.id} {...project} />)
@@ -14,11 +14,11 @@ const ProjectOverview = ({ projects }) => (
   </div>
 );
 
-ProjectOverview.propTypes = {
+ProjectsOverview.propTypes = {
   projects: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-export default ProjectOverview;
+export default ProjectsOverview;
 
 export const Project = ({ owner, name, lastDeploy }) => (
   <div className="Project text-center">

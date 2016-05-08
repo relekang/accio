@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import ProjectOverview from '../components/ProjectOverview';
+import ProjectOverview from '../components/ProjectsOverview';
 
 export const LandingPage = ({ projects, user }) => (
   <div className="LandingPage">
