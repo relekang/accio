@@ -4,10 +4,6 @@ import { IndexRoute, Route } from 'react-router';
 
 import App from './containers/App';
 
-function getLandingPage(name) {
-  return ;
-}
-
 function loginRequired(nextState, replace) {
   if (!get(window.user, 'isAuthenticated')) {
     replace({ pathname: '/' });
