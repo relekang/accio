@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'', include('social.apps.django_app.urls', namespace='social')),
     url(r'', include('django.contrib.auth.urls')),
     url(r'^webhooks/', include('accio.webhooks.urls', namespace='webhooks')),
+    url(r'^api/', include('accio.api.urls', namespace='api')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,8 +1,9 @@
 from django.contrib.postgres.fields.jsonb import JSONField
 from django.db import models
 
-from . import tasks
 from .. import github
+from . import tasks
+from .managers import ProjectManager
 
 
 class Project(models.Model):
@@ -10,6 +11,8 @@ class Project(models.Model):
     name = models.CharField(max_length=200)
     vcs_url = models.TextField()
     deploy_on = models.CharField(max_length=60, default='status')
+
+    objects = ProjectManager()
 
     def save(self, *args, **kwargs):
         update_webhook = True
