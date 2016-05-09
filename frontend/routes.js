@@ -4,12 +4,8 @@ import { IndexRoute, Route } from 'react-router';
 
 import App from './containers/App';
 
-function getContainer(name) {
-  return (location, callback) => {
-    require.ensure([], require => {
-      callback(null, require(`./containers/${name}`).default);
-    });
-  };
+function getLandingPage(name) {
+  return ;
 }
 
 function loginRequired(nextState, replace) {
@@ -20,12 +16,30 @@ function loginRequired(nextState, replace) {
 
 export default (
   <Route path="/" component={App}>
-    <IndexRoute getComponent={getContainer('LandingPage')} />
+    <IndexRoute
+      getComponent={(location, callback) => {
+        require.ensure([], require => {
+          callback(null, require('./containers/LandingPage').default);
+        });
+      }}
+    />
     <Route
       path="projects/:owner/:name"
-      getComponent={getContainer('ProjectDetails')}
+      getComponent={(location, callback) => {
+        require.ensure([], require => {
+          callback(null, require('./containers/ProjectDetails').default);
+        });
+      }}
       onEnter={loginRequired}
     />
-    <Route path="*" getComponent={getContainer('NotFound')} onEnter={loginRequired} />
+    <Route
+      path="*"
+      getComponent={(location, callback) => {
+        require.ensure([], require => {
+          callback(null, require('./containers/NotFound').default);
+        });
+      }}
+      onEnter={loginRequired}
+    />
   </Route>
 );
