@@ -1,6 +1,10 @@
 tasks:
+  setup:
+    - npm install
   tests:
     - tox
+    - npm run lint
+    - npm test
 
 services:
   - postgresql
