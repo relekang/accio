@@ -101,7 +101,13 @@ class TaskResult(models.Model):
             return self.config['commands']
         return []
 
-    def run(self):
+    def run(self, force=False):
+        if not force and 'queue' in self.config and self.config['queue'] != 'default':
+            return tasks.run_deploy_task.apply_async(
+                args=[self.pk],
+                queue=self.config['queue']
+            )
+
         self.started_at = timezone.now()
         self.save(update_fields=['started_at'])
         get_runner_for_task_type(self.task_type).run_task(self)

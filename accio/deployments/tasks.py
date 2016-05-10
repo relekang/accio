@@ -16,3 +16,10 @@ def deploy(deployment_id):
     deployment.finished_at = timezone.now()
     deployment.status = deployment.evaluate_status()
     deployment.save(update_fields=['finished_at', 'status'])
+
+
+@shared_task
+def run_deploy_task(task_id):
+    from .models import TaskResult
+    task = TaskResult.objects.get(pk=task_id)
+    return task.run(force=True)

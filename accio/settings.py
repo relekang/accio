@@ -1,6 +1,9 @@
 import json
 import os
 
+from kombu import Exchange
+from kombu import Queue
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 REPO_DIR = os.path.dirname(BASE_DIR)
 
@@ -129,11 +132,16 @@ STATIC_ROOT = os.path.join(REPO_DIR, 'static')
 MEDIA_URL = '/uploads/'
 MEDIA_ROOT = os.path.join(REPO_DIR, 'uploads')
 
+BROKER_URL = 'redis://localhost:6379/4'
 CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_ACCEPT_CONTENT = ['json']
-BROKER_URL = 'redis://localhost:6379/4'
+CELERY_DEFAULT_QUEUE = 'default'
+CELERY_QUEUES = (
+    Queue('default', Exchange('default'), routing_key='default'),
+    Queue('extra', Exchange('extra')),
+)
 
 PRIVATE_KEY_FILENAME = secrets.get('private_key_filename', '~/.ssh/id_rsa')
 PUBLIC_KEY_FILENAME = '{0}.pub'.format(secrets.get('private_key_filename', '~/.ssh/id_rsa'))

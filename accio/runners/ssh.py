@@ -1,4 +1,5 @@
 import logging
+import os
 
 from django.conf import settings
 from paramiko import AutoAddPolicy, SSHClient
@@ -17,7 +18,7 @@ class SshRunner(Runner):
         client.connect(
             hostname=task.config['hostname'],
             username=task.config['username'],
-            key_filename=settings.PRIVATE_KEY_FILENAME,
+            key_filename=os.path.expanduser(settings.PRIVATE_KEY_FILENAME),
         )
 
         return client
