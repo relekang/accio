@@ -10,6 +10,9 @@ logger = logging.getLogger(__name__)
 
 
 class SshRunner(Runner):
+    def get_commands(self, task):
+        return task.config['commands']
+
     @staticmethod
     def set_up_client(task):
         client = SSHClient()
@@ -48,6 +51,3 @@ class SshRunner(Runner):
             logger.exception(error)
             task.result['ssh'] = {'exit_code': 1, 'error': str(error)}
             task.save()
-
-    def get_commands(self, task):
-        return task.config['commands']

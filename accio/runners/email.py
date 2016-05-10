@@ -5,6 +5,9 @@ from .base import Runner
 
 
 class EmailRunner(Runner):
+    def get_commands(self, task):
+        return task.config['recipients']
+
     @staticmethod
     def create_subject(task):
         status = task.deployment.evaluate_status()

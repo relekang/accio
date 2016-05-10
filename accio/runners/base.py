@@ -1,3 +1,3 @@
-
 class Runner(object):
-    pass
+    def get_commands(self, task):
+        return []

@@ -95,11 +95,7 @@ class TaskResult(models.Model):
 
     @property
     def commands(self):
-        if self.task_type == DeploymentTaskType.GIT_SSH:
-            return ['git fetch', 'git reset --hard origin {0}'.format(self.deployment.ref)]
-        if 'commands' in self.config:
-            return self.config['commands']
-        return []
+        return get_runner_for_task_type(self.task_type).get_commands(self)
 
     def run(self, force=False):
         if not force and 'queue' in self.config and self.config['queue'] != 'default':
