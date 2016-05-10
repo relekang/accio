@@ -2,6 +2,7 @@ from rest_framework import permissions, viewsets
 
 from accio.projects.models import Project
 from accio.projects.serializers import ProjectSerializer
+
 from ..filters import PermittedPermissionFilter
 
 

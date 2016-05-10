@@ -1,8 +1,8 @@
 from django.contrib.postgres.fields.jsonb import JSONField
 from django.db import models
 
-from .. import github
 from . import tasks
+from .. import github
 from .managers import ProjectManager
 
 

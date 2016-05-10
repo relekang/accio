@@ -12,5 +12,3 @@ class PermittedQuerySet(models.QuerySet):
         if user.is_anonymous() and not self.allow_anonymous:
             return self.none()
         return self.filter(self.permitted_query(user)).distinct()
-
-
