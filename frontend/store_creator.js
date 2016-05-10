@@ -5,12 +5,13 @@ import createLogger from 'redux-logger';
 
 import DevTools from './containers/DevTools';
 import reducers from './reducers';
+import * as api from './api';
 
 const loggerMiddleware = createLogger();
 
 export default function configureStore(browserHistory, initialState) {
   let middlewares = [
-    thunkMiddleware,
+    thunkMiddleware.withExtraArgument({ api }),
     routerMiddleware(browserHistory),
   ];
 
