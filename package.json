@@ -26,6 +26,7 @@
     "babel-preset-stage-2": "^6.5.0",
     "css-loader": "^0.23.1",
     "extract-text-webpack-plugin": "^1.0.1",
+    "js-cookie": "^2.1.1",
     "lodash": "^4.11.2",
     "moment": "^2.13.0",
     "nib": "^1.1.0",
@@ -40,6 +41,7 @@
     "redux-thunk": "^2.0.1",
     "style-loader": "^0.13.1",
     "stylus-loader": "^2.0.0",
+    "superagent": "^1.8.3",
     "webpack": "^1.13.0"
   },
   "devDependencies": {
