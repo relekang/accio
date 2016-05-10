@@ -4,11 +4,32 @@
   "description": "deploy all the things",
   "main": "index.js",
   "scripts": {
-    "test": "nyc -a --require=babel-core/register ava"
+    "test": "nyc -a --require=babel-core/register ava",
+    "lint": "eslint frontend server.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/relekang/accio.git"
+  },
+  "ava": {
+    "files": [
+      "frontend/**/__tests__/*.js"
+    ],
+    "source": [
+      "frontend/**/*.js"
+    ],
+    "require": [
+      "babel-register"
+    ],
+    "babel": "inherit"
+  },
+  "nyc": {
+    "include": [
+      "frontend/**/*.js"
+    ],
+    "exclude": [
+      "frontend/**/__tests__/*.js"
+    ]
   },
   "author": "Rolf Erik Lekang",
   "license": "UNLICENSED",

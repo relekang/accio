@@ -88,5 +88,6 @@ ENV/
 .ropeproject
 
 
+.nyc_output/
 secrets.json
 /static
