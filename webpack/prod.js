@@ -26,9 +26,7 @@ module.exports = {
       },
     }),
     new webpack.DefinePlugin({ __DEV__: false }),
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: { warnings: false },
-    }),
+    // new webpack.optimize.UglifyJsPlugin({compressor: { warnings: false }}),
     new ExtractTextPlugin('[name].css'),
   ],
 };
