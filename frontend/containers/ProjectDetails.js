@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import { find } from 'lodash';
 
 import { fetchProject } from '../actions';
+import havePropOr404 from '../components/prop_or_404';
 import ProjectDetails from '../components/ProjectDetails';
 
 function mapStateToProps({ projects, user }, { params }) {
@@ -11,4 +12,4 @@ function mapStateToProps({ projects, user }, { params }) {
   return { project, user };
 }
 
-export default connect(mapStateToProps, { fetchProject })(ProjectDetails);
+export default connect(mapStateToProps, { fetchProject })(havePropOr404('project', ProjectDetails));
