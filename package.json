@@ -21,7 +21,8 @@
     "require": [
       "babel-register"
     ],
-    "babel": "inherit"
+    "babel": "inherit",
+    "verbose": true
   },
   "nyc": {
     "include": [
@@ -68,6 +69,7 @@
   "devDependencies": {
     "ava": "^0.14.0",
     "babel-preset-react-hmre": "^1.1.1",
+    "deep-freeze": "0.0.1",
     "eslint": "^2.9.0",
     "eslint-config-airbnb": "^9.0.1",
     "eslint-plugin-import": "^1.7.0",
