@@ -93,6 +93,14 @@ class TaskResult(models.Model):
 
         return output or json.dumps(self.result)
 
+    @property
+    def commands(self):
+        if self.task_type == DeploymentTaskType.GIT_SSH:
+            return ['git fetch', 'git reset --hard origin {0}'.format(self.deployment.ref)]
+        if 'commands' in self.config:
+            return self.config['commands']
+        return []
+
     def run(self):
         self.started_at = timezone.now()
         self.save(update_fields=['started_at'])

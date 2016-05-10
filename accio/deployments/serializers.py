@@ -13,6 +13,7 @@ class TaskResultSerializer(serializers.ModelSerializer):
             'started_at',
             'finished_at',
             'status',
+            'commands',
         )
 
 
