@@ -55,6 +55,7 @@ const TaskResult = ({ commands, taskType, result }) => {
       <h3>{taskType}</h3>
       <code className="overflow-x">
         {map(keys, key => {
+          if (!result[key]) return false;
           const { error, stdout, exitCode } = result[key];
           return (
             <div key={taskType + key} className="padding">
