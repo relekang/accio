@@ -1,8 +1,7 @@
 import json
 import os
 
-from kombu import Exchange
-from kombu import Queue
+from kombu import Exchange, Queue
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 REPO_DIR = os.path.dirname(BASE_DIR)
