@@ -25,7 +25,7 @@ export function deployProject(id, data) {
     return api.post(`/projects/${id}/deploy/`, data)
       .then(() => {
         dispatch(removeAlert(alertId));
-        dispatch(addAlert(dispatch, { type: 'success', message: 'Started deploy' }))
+        dispatch(addAlert(dispatch, { type: 'success', message: 'Started deploy' }));
       })
       .then(() => fetchProject(id)(dispatch, getState, { api }))
       .catch(error => {
