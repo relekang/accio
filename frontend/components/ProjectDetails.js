@@ -62,8 +62,8 @@ ProjectDetails.propTypes = {
   project: PropTypes.object.isRequired,
 };
 
-const TaskResult = ({ commands, taskType, result }) => {
-  let keys = Object.keys(result || {});
+const TaskResult = ({ commands, taskType, result = {} }) => {
+  let keys = Object.keys(result);
   if (!isEmpty(commands) && !result.hasOwnProperty('ssh')) {
     keys = commands;
   }
