@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import { get, isEmpty, map } from 'lodash';
 
 import './ProjectDetails.styl';
+import Spinner from './Spinner';
 
 export default class ProjectDetails extends Component {
   constructor(props, context) {
@@ -37,8 +38,9 @@ export default class ProjectDetails extends Component {
     return (
       <div className="ProjectDetails">
         <h1>
-          {get(this.props.project.owner, 'name')} / {this.props.project.name}
           <button onClick={this.onDeploy}>Deploy</button>
+          <span>{get(this.props.project.owner, 'name')} / {this.props.project.name}</span>
+          {lastDeploy.finishedAt === null && <Spinner />}
         </h1>
         {lastDeploy &&
           <div>
