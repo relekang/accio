@@ -5,7 +5,7 @@ djangorestframework==3.3.3
 djangorestframework-camel-case==0.2.0
 python-social-auth==0.2.19
 requests==2.10.0
-paramiko==1.16.0
+paramiko==2.0.0
 github3.py==0.9.5
 
 celery==3.1.23
