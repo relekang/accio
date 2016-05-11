@@ -27,6 +27,13 @@ export const get = (path, data) => {
     });
 };
 
+export const post = (path, data) => request
+  .post(`/api${path}`)
+  .set(headers)
+  .send(JSON.stringify(data))
+  .endAsync()
+  .then(extractBody);
+
 export const add = (path, data) => request
   .post(`/api${path}/`)
   .set(headers)

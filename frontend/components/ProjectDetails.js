@@ -5,6 +5,14 @@ import { get, isEmpty, map } from 'lodash';
 import './ProjectDetails.styl';
 
 export default class ProjectDetails extends Component {
+  constructor(props, context) {
+    super(props, context);
+    this.onDeploy = this.onDeploy.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.fetchProject(this.props.project.id);
+  }
 
   componentDidMount() {
     this.interval = window.setInterval(() => {
@@ -20,11 +28,18 @@ export default class ProjectDetails extends Component {
     }
   }
 
+  onDeploy() {
+    this.props.deployProject(this.props.project.id, {});
+  }
+
   render() {
     const { lastDeploy } = this.props.project;
     return (
-      <div className="this.props.projectDetails">
-        <h1>{get(this.props.project.owner, 'name')} / {this.props.project.name}</h1>
+      <div className="ProjectDetails">
+        <h1>
+          {get(this.props.project.owner, 'name')} / {this.props.project.name}
+          <button onClick={this.onDeploy}>Deploy</button>
+        </h1>
         {lastDeploy &&
           <div>
             <h2>Last deployment</h2>
@@ -41,6 +56,7 @@ export default class ProjectDetails extends Component {
 
 ProjectDetails.propTypes = {
   fetchProject: PropTypes.func.isRequired,
+  deployProject: PropTypes.func.isRequired,
   project: PropTypes.object.isRequired,
 };
 

@@ -9,12 +9,12 @@ test('receiveProject should return object with type and data', t => {
 
 test('fetchProject should dispatch object', t => {
   t.plan(1);
-  const apiMock = { get: (path, { id }) => Promise.resolve({ id }) };
+  const api = { get: (path, { id }) => Promise.resolve({ id }) };
   const dispatch = action => t.deepEqual(action, receiveProject({ id: 42 }));
-  return fetchProject(42)(dispatch, apiMock);
+  return fetchProject(42)(dispatch, noop, { api });
 });
 
 test('fetchProject should throw error', t => {
-  const apiMock = { get: () => Promise.reject(new Error('Something failed')) };
-  t.throws(fetchProject(42)(noop, apiMock));
+  const api = { get: () => Promise.reject(new Error('Something failed')) };
+  t.throws(fetchProject(42)(noop, noop, { api }));
 });
