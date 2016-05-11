@@ -3,10 +3,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { IndexLink } from 'react-router';
 
+import Alerts from '../components/Alerts';
 import UserMenu from '../components/UserMenu';
 
 export const App = ({ children, user }) => (
   <div className="app-container">
+    <Alerts />
     <div className="header">
       <div className="container">
         <UserMenu {...user } />

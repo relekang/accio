@@ -1,0 +1,51 @@
+.Alerts
+  position: absolute
+  top: 0
+  right: 0
+  width: 100%
+
+  .Alert
+    height: 2rem
+    line-height: 2rem
+    font-size: 1.2rem
+    padding: 1.2rem 0
+    text-align: center
+
+    span:before
+      margin-right: 0.4rem
+
+    &.info
+      background: white
+      color: gray
+
+      span:before
+        content: 'ℹ'
+        color: gray
+
+    &.success
+      background: white
+      color: green
+      span:before
+        content: '✓'
+        color: green
+
+    &.error
+      background: white
+      color: #8b0000
+      span:before
+        content: '✖'
+        color: #8b0000
+
+.Alert-enter
+  opacity 0.01
+  transition opacity .6s ease-in
+
+  &.Alert-enter-active
+    opacity 1
+
+.Alert-leave
+  opacity 1
+  transition opacity .6s ease-in
+
+  &.Alert-leave-active
+    opacity 0.01
