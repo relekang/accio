@@ -3,7 +3,7 @@ psycopg2==2.6.1
 
 djangorestframework==3.3.3
 djangorestframework-camel-case==0.2.0
-python-social-auth==0.2.18
+python-social-auth==0.2.19
 requests==2.9.1
 paramiko==1.16.0
 github3.py==0.9.5
