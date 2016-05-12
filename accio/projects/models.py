@@ -48,7 +48,10 @@ class Project(models.Model):
 
     def deploy_latest(self, branch='master'):
         ref = github.get_latest_commit_hash(self, branch)
-        self.deployments.create(ref=ref).start()
+        return self.deploy_ref(ref)
+
+    def deploy_ref(self, ref):
+        return self.deployments.create(ref=ref).start()
 
 
 class DeploymentTaskType(object):

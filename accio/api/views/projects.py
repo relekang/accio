@@ -17,5 +17,9 @@ class ProjectViewSet(viewsets.ModelViewSet):
     @detail_route(methods=['post'])
     def deploy(self, request, pk):
         project = self.get_object()
-        project.deploy_latest()
+        ref = request.POST.get('ref', None)
+        if ref:
+            project.deploy_ref(ref)
+        else:
+            project.deploy_latest()
         return Response({'status': 'pending'})
