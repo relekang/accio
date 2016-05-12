@@ -1,6 +1,6 @@
 import moment from 'moment';
 import React, { Component, PropTypes } from 'react';
-import { get, isEmpty, map } from 'lodash';
+import { get, isEmpty, keys, map } from 'lodash';
 
 import './ProjectDetails.styl';
 import Spinner from './Spinner';
@@ -62,18 +62,18 @@ ProjectDetails.propTypes = {
   project: PropTypes.object.isRequired,
 };
 
-const TaskResult = ({ commands, taskType, result = {} }) => {
-  let keys = Object.keys(result);
-  if (!isEmpty(commands) && !result.hasOwnProperty('ssh')) {
-    keys = commands;
+const TaskResult = ({ commands, taskType, result }) => {
+  let resultKeys = keys(result);
+  if (!isEmpty(commands) && !(result && result.hasOwnProperty('ssh'))) {
+    resultKeys = commands;
   }
 
   return (
     <div>
       <h3>{taskType}</h3>
       <code className="overflow-x">
-        {map(keys, key => {
-          if (!result[key]) return false;
+        {map(resultKeys, key => {
+          if (!result || !result[key]) return false;
           const { error, stdout, exitCode } = result[key];
           return (
             <div key={taskType + key} className="padding">
