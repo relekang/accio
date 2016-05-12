@@ -131,6 +131,7 @@ STATIC_ROOT = os.path.join(REPO_DIR, 'static')
 MEDIA_URL = '/uploads/'
 MEDIA_ROOT = os.path.join(REPO_DIR, 'uploads')
 
+RUN_TASKS_SYNCHRONOUSLY = DEBUG
 BROKER_URL = 'redis://localhost:6379/4'
 CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
 CELERY_TASK_SERIALIZER = 'json'
