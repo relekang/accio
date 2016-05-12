@@ -28,7 +28,7 @@ module.exports.loaders = [
 module.exports.resolve = {
   root,
   alias: {
-    '🎨': 'styles/variables.less',
+    '🎨': 'styles/variables.styl',
   }
 };
 
