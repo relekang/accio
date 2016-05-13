@@ -7,7 +7,7 @@ class User(AbstractUser):
 
     def save(self, *args, **kwargs):
         if not self.pk:
-            self.is_staff = True
+            self.is_active = False
         super().save(*args, **kwargs)
 
     @cached_property
