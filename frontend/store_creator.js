@@ -15,7 +15,7 @@ export default function configureStore(browserHistory, initialState) {
     routerMiddleware(browserHistory),
   ];
 
-  if (process.env.NODE_ENV !== "production") {
+  if (process.env.NODE_ENV !== 'production') {
     middlewares = [
       ...middlewares,
       loggerMiddleware,
@@ -24,7 +24,7 @@ export default function configureStore(browserHistory, initialState) {
 
   let storeEnhancers = [applyMiddleware(...middlewares)];
 
-  if (process.env.NODE_ENV !== "production") {
+  if (process.env.NODE_ENV !== 'production') {
     storeEnhancers = [...storeEnhancers, DevTools.instrument()];
   }
 
