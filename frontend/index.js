@@ -24,7 +24,7 @@ render(
   <Provider store={store}>
     <div>
       <Router history={history} routes={Routes} />
-      {__DEV__ && <DevTools />}
+      {process.env.NODE_ENV !== "production" && <DevTools />}
     </div>
   </Provider>,
   document.getElementById('app')
