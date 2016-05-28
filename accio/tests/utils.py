@@ -1,4 +1,4 @@
-from ..runners.base import Runner
+from accio.runners.base import Runner
 
 
 class TestRunner(Runner):

@@ -16,21 +16,21 @@ def status_based_project(accio_project):
 
 
 @pytest.mark.django_db
-def test_github_push_should_deploy(push_based_project, github_webhooks):
+def test_github_push_should_deploy(mock_runners, push_based_project, github_webhooks):
     response = github_webhooks(name='push', event='push')
     assert response.content.decode() == 'Deploy queued'
     assert response.status_code == 200
 
 
 @pytest.mark.django_db
-def test_github_push_should_deploy_other_branch(push_based_project, github_webhooks):
+def test_github_push_should_not_deploy_other_branch(push_based_project, github_webhooks):
     response = github_webhooks(name='push_other_branch', event='push')
     assert response.content.decode() == 'Not on master branch'
     assert response.status_code == 400
 
 
 @pytest.mark.django_db
-def test_github_status_success_should_deploy(status_based_project, github_webhooks):
+def test_github_status_success_should_deploy(mock_runners, status_based_project, github_webhooks):
     response = github_webhooks(name='status_success', event='status')
     assert response.content.decode() == 'Deploy queued'
     assert response.status_code == 200
