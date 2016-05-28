@@ -7,12 +7,19 @@ import pytest
 from django.conf import settings
 from django.core.urlresolvers import reverse
 
+from .tests.utils import TestRunner
+
 
 def pytest_configure(config):
     settings.BROKER_BACKEND = 'memory'
     settings.CELERY_ALWAYS_EAGER = True
     settings.CELERY_EAGER_PROPAGATES_EXCEPTIONS = True
     settings.RUNNING_TESTS = True
+
+
+@pytest.fixture
+def mock_runners(mocker):
+    return mocker.patch('accio.runners._get_runner_for_task_type', return_value=TestRunner())
 
 
 @pytest.fixture

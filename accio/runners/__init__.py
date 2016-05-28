@@ -17,5 +17,9 @@ runner_type_map = {
 }
 
 
-def get_runner_for_task_type(task_type):
+def _get_runner_for_task_type(task_type):
     return runner_type_map.get(task_type, None)
+
+
+def get_runner_for_task_type(task_type):
+    return _get_runner_for_task_type(task_type)
