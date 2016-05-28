@@ -35,8 +35,10 @@ def accio_project(relekang_org):
         owner=relekang_org,
         name='accio',
         vcs_url='git@github.com:relekang/accio.git',
+        config={"hostname": "host"}
     )
     project.save(update_webhook=False)
+    project.tasks.create(task_type='SSH', order=1, config={'commands': ['ls']})
     return project
 
 

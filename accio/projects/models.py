@@ -11,6 +11,7 @@ class Project(models.Model):
     name = models.CharField(max_length=200)
     vcs_url = models.TextField()
     deploy_on = models.CharField(max_length=60, default='status')
+    config = JSONField(null=True, blank=True)
 
     objects = ProjectManager()
 
@@ -80,8 +81,14 @@ class DeploymentTask(models.Model):
         super().save(*args, **kwargs)
 
     def run(self, deployment):
+        config = {}
+        if self.project.config is not None:
+            config.update(self.project.config)
+        if self.config is not None:
+            config.update(self.config)
+
         deployment.task_results.create(
             task_type=self.task_type,
             order=self.order,
-            config=self.config,
+            config=config,
         ).run()
