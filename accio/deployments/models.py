@@ -77,7 +77,7 @@ class TaskResult(models.Model):
                     try:
                         output += '{0}  ({1}) \n'.format(command, self.result[command]['exit_code'])
                         output += '{0}{0}\n{1}\n\n'.format(line, self.result[command]['stdout'])
-                    except KeyError as error:
+                    except (TypeError, KeyError) as error:
                         logger.debug(str(error))
 
             elif self.task_type == DeploymentTaskType.GIT_SSH:
