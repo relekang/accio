@@ -27,12 +27,17 @@ class SshRunner(Runner):
         return client
 
     @staticmethod
-    def run_command(command, client):
+    def run_command(command, client, config):
         result = {}
         channel = client.get_transport().open_session()
         channel.set_combine_stderr(True)
 
-        channel.exec_command(command)
+        if 'path' in config:
+            result['path'] = config['path']
+            channel.exec_command('cd {path} && {command}'.format(command=command, **config))
+        else:
+            channel.exec_command(command)
+
         result['stdout'] = channel.recv(1024 * 1024 * 1024).decode()
         result['exit_code'] = channel.recv_exit_status()
         return result
@@ -43,7 +48,7 @@ class SshRunner(Runner):
             client = self.set_up_client(task)
 
             for command in self.get_commands(task):
-                task.result[command] = self.run_command(command, client)
+                task.result[command] = self.run_command(command, client, task.config)
                 task.save()
 
             client.close()
