@@ -40,7 +40,7 @@ export default class ProjectDetails extends Component {
         <h1>
           <button onClick={this.onDeploy}>Deploy</button>
           <span>{get(this.props.project.owner, 'name')} / {this.props.project.name}</span>
-          {lastDeploy.finishedAt === null && <Spinner />}
+          {get(lastDeploy, 'finishedAt') === null && <Spinner />}
         </h1>
         {lastDeploy &&
           <div>
